@@ -1,0 +1,109 @@
+{
+  "//": "Legacy config format for ESLint 8.x. If you're on ESLint 9+, use eslint.config.js instead — this file is provided only for teams pinned to the older config format.",
+  "root": true,
+  "env": {
+    "browser": true,
+    "es2020": true,
+    "jquery": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "script"
+  },
+  "globals": {
+    "SiebelApp": "readonly",
+    "SiebelAppFacade": "writable",
+    "SiebelJS": "readonly",
+    "define": "readonly",
+    "require": "readonly",
+    "requirejs": "readonly",
+    "consts": "writable",
+    "siebConsts": "writable"
+  },
+  "plugins": ["jsdoc"],
+  "extends": ["eslint:recommended", "plugin:jsdoc/recommended"],
+  "ignorePatterns": [
+    "**/*.min.js",
+    "thirdparty/**",
+    "vendor/**",
+    "dist/**",
+    "build/**"
+  ],
+  "rules": {
+    "no-undef": "error",
+    "no-unused-vars": ["warn", { "args": "none", "varsIgnorePattern": "^_" }],
+    "eqeqeq": ["warn", "smart"],
+    "no-implicit-globals": "error",
+    "no-redeclare": "error",
+    "no-shadow": "warn",
+    "no-throw-literal": "warn",
+    "no-return-assign": "warn",
+
+    "camelcase": ["warn", { "properties": "never" }],
+    "no-console": ["warn", { "allow": ["error", "warn"] }],
+    "no-restricted-syntax": [
+      "warn",
+      {
+        "selector": "CallExpression[callee.object.name='console'][callee.property.name='log']",
+        "message": "Use SiebelJS.Log(...) instead of console.log in Siebel Open UI PM/PR/PW code."
+      },
+      {
+        "selector": "CallExpression[callee.name='eval']",
+        "message": "eval() is not permitted in Siebel Open UI customizations."
+      }
+    ],
+
+    "prefer-rest-params": "off",
+    "prefer-spread": "off",
+    "func-style": "off",
+    "no-underscore-dangle": "off",
+    "no-var": "off",
+    "one-var": "off",
+    "block-scoped-var": "off",
+    "vars-on-top": "off",
+    "new-cap": ["warn", { "newIsCap": true, "capIsNew": false }],
+
+    "jsdoc/require-jsdoc": [
+      "warn",
+      {
+        "publicOnly": true,
+        "require": {
+          "FunctionDeclaration": false,
+          "MethodDefinition": false
+        }
+      }
+    ],
+    "jsdoc/require-param": "warn",
+    "jsdoc/require-returns": "warn",
+    "jsdoc/check-param-names": "warn",
+    "jsdoc/check-types": "off",
+    "jsdoc/no-undefined-types": [
+      "warn",
+      {
+        "definedTypes": [
+          "JSSPropertySet",
+          "AppletControl",
+          "PresentationModel",
+          "ApplePresentationModel",
+          "ListPresentationModel",
+          "MenuPresentationModel",
+          "PhysicalRenderer",
+          "BasePlugInWrapper",
+          "Applet",
+          "MethodConfig",
+          "BindingConfig",
+          "ListColumnDescriptor",
+          "PWState"
+        ]
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": ["**/manifest*.js", "**/*.manifest.js"],
+      "rules": {
+        "no-unused-vars": "off"
+      }
+    }
+  ]
+}
